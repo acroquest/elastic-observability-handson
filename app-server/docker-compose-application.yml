@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  appangular:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ../spring-petclinic-angular/dist:/usr/share/nginx/html/petclinic/dist
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/log:/var/log/nginx
+    networks:
+      - petclinic-elk-network
+  apprest:
+    image: openjdk:11-slim
+    ports:
+      - 9966:9966
+    volumes:
+      - ../spring-petclinic-rest/target/spring-petclinic-rest-2.1.5.jar:/opt/spring-petclinic-rest-2.1.5.jar
+      - ./springboot/log:/var/log/demo
+    working_dir: /opt
+    command: java -jar -Dserver_url=http://${ELASTIC_SERVER_IP}:8200 spring-petclinic-rest-2.1.5.jar
+    networks:
+      - petclinic-elk-network
+networks:
+  petclinic-elk-network:

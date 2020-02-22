@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  fluentd:
+    build:
+      context: .
+      dockerfile: Dockerfile_fluentd
+    volumes:
+      - ./fluentd/conf/fluent.conf:/fluentd/etc/fluent.conf
+      - ./nginx/log:/var/log/nginx
+      - ./springboot/log:/var/log/springboot
