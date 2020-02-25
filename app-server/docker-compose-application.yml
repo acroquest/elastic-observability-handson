@@ -11,6 +11,7 @@ services:
       - ./nginx/log:/var/log/nginx
     networks:
       - petclinic-elk-network
+
   apprest:
     image: openjdk:11-slim
     ports:
@@ -19,8 +20,9 @@ services:
       - ../spring-petclinic-rest/target/spring-petclinic-rest-2.1.5.jar:/opt/spring-petclinic-rest-2.1.5.jar
       - ./springboot/log:/var/log/demo
     working_dir: /opt
-    command: java -jar -Dserver_url=http://${ELASTIC_SERVER_IP}:8200 spring-petclinic-rest-2.1.5.jar
+    command: java -jar spring-petclinic-rest-2.1.5.jar
     networks:
       - petclinic-elk-network
+
 networks:
   petclinic-elk-network:
