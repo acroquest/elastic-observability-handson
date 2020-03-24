@@ -8,8 +8,3 @@ services:
       - ./filebeat/conf/nginx.yml:/usr/share/filebeat/modules.d/nginx.yml
       - ./nginx/log/:/var/log/nginx
       - ./springboot/log/:/var/log/springboot
-    networks:
-      - petclinic-elk-network
-
-networks:
-  petclinic-elk-network:
